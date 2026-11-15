@@ -362,11 +362,11 @@ export function LandingPage({
                   key={product.id}
                   data-garment-id={product.id}
                   className="group flex flex-col cursor-pointer"
-                  onClick={() => onSelectGarment('oversized_tee')}
+                  onClick={() => onSelectGarment(product.id)}
                 >
                   {/* Clean Garment Preview Container */}
                   <figure className={`relative aspect-[16/11] w-full rounded-2xl border border-gray-200 dark:border-white/10 ${
-                    product.id === 'oversized_tee'
+                    product.id === 'oversized_tee' || product.id === 'hoodie'
                       ? 'bg-[#0b0d11] dark:bg-[#07090c] p-0'
                       : 'bg-white dark:bg-[#181b20] p-6'
                   } shadow-sm hover:shadow-md transition-all overflow-hidden flex items-center justify-center`}>
@@ -391,6 +391,13 @@ export function LandingPage({
                     {product.id === 'oversized_tee' ? (
                       <img
                         src={getAssetUrl('/garments/oversized_tee_landing.jpg')}
+                        alt={cleanTitle}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out z-0"
+                        loading="lazy"
+                      />
+                    ) : product.id === 'hoodie' ? (
+                      <img
+                        src={getAssetUrl('/garments/hoodie_landing.jpg')}
                         alt={cleanTitle}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out z-0"
                         loading="lazy"
