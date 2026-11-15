@@ -170,15 +170,23 @@ export class SceneManager {
     this.onLoaded = onLoaded;
     this.isPaused = false;
 
-    // 1. Renderer
+    // Detect mobile device for performance optimization
+    const isMobile = typeof window !== 'undefined' && (
+      window.innerWidth < 768 ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '')
+    );
+    this.isMobileDevice = isMobile;
+
+    // 1. Renderer (Optimized pixelRatio and shader passes for mobile 60 FPS)
     this.renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: !isMobile, // Disable MSAA overhead on high-DPI mobile screens to maximize FPS
       preserveDrawingBuffer: true,
       alpha: true,
       powerPreference: 'high-performance'
     });
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const maxRatio = isMobile ? 1.0 : (window.innerWidth < 1280 ? 1.5 : 2.0);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxRatio));
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.0;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -1358,16 +1366,18 @@ export class SceneManager {
     this.scene.add(rimLight);
     this.lights.rim = rimLight;
 
-    // Lateral rim lights for shoulder and sleeve drape separation
-    const rightSideRim = new THREE.DirectionalLight(0x9db0ff, 1.20);
-    rightSideRim.position.set(10, 6, -8);
-    this.scene.add(rightSideRim);
-    this.lights.sideRim = rightSideRim;
+    // Lateral rim lights for shoulder and sleeve drape separation (desktop/high-power only)
+    if (!this.isMobileDevice) {
+      const rightSideRim = new THREE.DirectionalLight(0x9db0ff, 1.20);
+      rightSideRim.position.set(10, 6, -8);
+      this.scene.add(rightSideRim);
+      this.lights.sideRim = rightSideRim;
 
-    const leftSideRim = new THREE.DirectionalLight(0x9db0ff, 1.20);
-    leftSideRim.position.set(-10, 6, -8);
-    this.scene.add(leftSideRim);
-    this.lights.leftSideRim = leftSideRim;
+      const leftSideRim = new THREE.DirectionalLight(0x9db0ff, 1.20);
+      leftSideRim.position.set(-10, 6, -8);
+      this.scene.add(leftSideRim);
+      this.lights.leftSideRim = leftSideRim;
+    }
 
     // Back Key light - ensures back of garment is equally well-lit during 360 turntable
     const backKeyLight = new THREE.DirectionalLight(0xffffff, 1.25);
@@ -3208,7 +3218,8 @@ export class SceneManager {
     this.camera.aspect = this.width / this.height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const maxRatio = this.isMobileDevice ? 1.0 : (window.innerWidth < 1280 ? 1.5 : 2.0);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxRatio));
 
     const isMobilePortrait = window.innerWidth < 768;
     if (this.controls) {
@@ -3246,11 +3257,9 @@ export class SceneManager {
       return;
     }
 
-    // High-precision clock delta with deterministic frame stepping during video recording
+    // High-precision clock delta with real-time clamping (never slow motion)
     const rawDelta = this.clock.getDelta();
-    const delta = this.isRecordingVideo
-      ? (1.0 / (this.recordingFps || 30))
-      : Math.min(Math.max(rawDelta, 0.001), 0.05);
+    const delta = Math.min(Math.max(rawDelta, 0.001), 0.04);
 
     // Smooth material preset transition (color, sheenColor, roughness, sheen, normalScale)
     if (this.targetMaterialProps) {
@@ -3432,14 +3441,14 @@ export class SceneManager {
       }
     }
 
-    // Video recording showcase motion: smooth continuous 360° spin loop based on deterministic elapsed frames
+    // Video recording showcase motion: smooth continuous 360° spin loop synced to real elapsed time
     if (this.isRecordingVideo && this.recordingMotion === 'showcase360') {
       const activeRoot = this.getActiveGarmentRoot();
       const totalDuration = this.recordingDuration || 5;
-      const fps = this.recordingFps || 30;
-      this.recordingFrame = (this.recordingFrame || 0) + 1;
-      const totalFrames = Math.max(1, totalDuration * fps);
-      const progress = Math.min(1.0, this.recordingFrame / totalFrames);
+      const now = performance.now();
+      const elapsed = Math.max(0, (now - (this.recordingStartTime || now)) / 1000);
+      this.recordingElapsedSec = elapsed;
+      const progress = Math.min(1.0, elapsed / totalDuration);
       const loops = totalDuration >= 15 ? 2 : 1;
       const targetAngle = (this.recordingBaseAngle || 0) + progress * (2 * Math.PI * loops);
 
@@ -3539,17 +3548,19 @@ export class SceneManager {
     const activeRoot = this.getActiveGarmentRoot();
     this.recordingBaseAngle = activeRoot?.rotation.y || 0;
 
-    // During screen recording or active view recording, preserve native on-screen canvas sizing
-    // to prevent buffer reallocation lag, maintain silky-smooth motion, and avoid visual popping.
+    // Optimize recording canvas resolution:
+    // On mobile viewports/devices, 720p HD renders and hardware encodes at 60 FPS without dropping frames.
+    // On desktop, 1080p provides crisp Full HD renders.
+    const isMobile = this.isMobileDevice || (typeof window !== 'undefined' && window.innerWidth < 768);
     if (!isScreenSource && format !== 'current' && (format === 'mobile' || format === 'square')) {
-      const targetW = 1080;
-      const targetH = (format === 'mobile') ? 1920 : 1080;
+      const targetW = isMobile ? 720 : 1080;
+      const targetH = (format === 'mobile') ? (isMobile ? 1280 : 1920) : (isMobile ? 720 : 1080);
       this.renderer.setPixelRatio(1);
       this.renderer.setSize(targetW, targetH, false);
       this.camera.aspect = targetW / targetH;
       this.camera.updateProjectionMatrix();
       this.preRecordState.wasResized = true;
-    } else if (!isScreenSource && this.preRecordState.pixelRatio > 1.25) {
+    } else if (!isScreenSource && this.preRecordState.pixelRatio > 1.0) {
       // For desktop / current format, cap pixelRatio to 1.0 to prevent 4K framebuffer stalls during capture
       this.renderer.setPixelRatio(1);
       this.renderer.setSize(this.width, this.height, false);

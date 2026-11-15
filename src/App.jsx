@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Maximize2, Minimize2, CheckCircle, Shirt, Video, Move, Hand, ZoomIn, ZoomOut } from 'lucide-react';
+import { Maximize2, Minimize2, CheckCircle, Shirt, Video, Move, Hand, ZoomIn, ZoomOut, Loader2, Film, StopCircle } from 'lucide-react';
 import { SidebarLeft } from './components/SidebarLeft';
 import { PositionGuide } from './components/PositionGuide';
 import { ExportPanel } from './components/ExportPanel';
@@ -1129,29 +1129,81 @@ export default function App() {
         setAsyncExportState={setAsyncExportState}
       />
 
-      {/* Floating Studio Recording Pill (Non-intrusive, zero screen obstruction for smooth recording) */}
+      {/* Prominent Video Export Loader Overlay */}
       {asyncExportState.isRecording && (
-        <div className="fixed top-20 right-6 z-50 flex items-center gap-3 bg-gray-950/90 dark:bg-studio-900/90 border border-red-500/40 px-4 py-2.5 rounded-2xl shadow-xl backdrop-blur-md text-white animate-fadeIn">
-          <div className="size-2.5 rounded-full bg-red-500 animate-ping" />
-          <div className="flex flex-col">
-            <span className="text-xs font-black uppercase tracking-wider text-red-400">
-              Recording 60 FPS
-            </span>
-            <span className="text-[11px] font-mono font-bold text-gray-300">
-              {asyncExportState.elapsedSec.toFixed(1)}s / {asyncExportState.duration}s ({asyncExportState.progress}%)
-            </span>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-md px-4 animate-fadeIn select-none">
+          <div className="relative w-full max-w-sm rounded-3xl bg-gray-900/95 dark:bg-[#12141a]/95 border border-white/10 p-6 sm:p-7 shadow-2xl text-center text-white flex flex-col items-center">
+            
+            {/* Glowing Backdrop Aura */}
+            <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-48 bg-brand-500/25 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Circular Progress & Spinner */}
+            <div className="relative size-24 mb-5 flex items-center justify-center">
+              <svg className="size-full -rotate-90" viewBox="0 0 100 100">
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  className="stroke-white/10"
+                  strokeWidth="7"
+                  fill="none"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  className="stroke-brand-500 transition-all duration-200 ease-out"
+                  strokeWidth="7"
+                  strokeDasharray={264}
+                  strokeDashoffset={264 - (264 * Math.min(100, Math.max(0, asyncExportState.progress || 0))) / 100}
+                  strokeLinecap="round"
+                  fill="none"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-xl font-black tracking-tight">{Math.round(asyncExportState.progress || 0)}%</span>
+                <span className="text-[10px] text-gray-400 font-mono">
+                  {asyncExportState.elapsedSec.toFixed(1)}s
+                </span>
+              </div>
+            </div>
+
+            {/* Title & Dynamic Status */}
+            <h3 className="text-lg font-black text-white mb-1 flex items-center gap-2">
+              <Film className="size-5 text-brand-400 animate-pulse" />
+              <span>Exporting 3D Video</span>
+            </h3>
+
+            <p className="text-xs text-gray-400 max-w-xs mb-5 font-medium leading-relaxed">
+              {asyncExportState.progress < 25
+                ? 'Initializing 3D studio capture stream...'
+                : asyncExportState.progress < 85
+                ? 'Rendering high-fidelity frames & encoding...'
+                : 'Assembling smooth MP4 video container...'}
+            </p>
+
+            {/* Time progress bar */}
+            <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-3 mb-5 flex items-center justify-between text-xs font-mono">
+              <span className="text-gray-400">Duration:</span>
+              <span className="text-white font-bold">
+                {asyncExportState.elapsedSec.toFixed(1)}s / {asyncExportState.duration}s
+              </span>
+            </div>
+
+            {/* Action button */}
+            <button
+              type="button"
+              onClick={() => {
+                if (window.__ACTIVE_VIDEO_RECORDER__) {
+                  window.__ACTIVE_VIDEO_RECORDER__.stopEarly();
+                }
+              }}
+              className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-red-500/20 hover:border-red-500/40 border border-white/10 text-xs font-bold text-gray-300 hover:text-red-400 flex items-center justify-center gap-1.5 transition-all active:scale-95 shadow-sm"
+            >
+              <StopCircle className="size-4" />
+              <span>Finish & Download Video</span>
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              if (window.__ACTIVE_VIDEO_RECORDER__) {
-                window.__ACTIVE_VIDEO_RECORDER__.stopEarly();
-              }
-            }}
-            className="ml-2 px-2.5 py-1 rounded-xl bg-red-600 hover:bg-red-700 text-[11px] font-bold text-white transition-all shadow-sm"
-          >
-            Stop
-          </button>
         </div>
       )}
 

@@ -169,10 +169,25 @@ export class CanvasVideoRecorder {
 
     return new Promise((resolve, reject) => {
       try {
+        const isMobile = typeof window !== 'undefined' && (
+          window.innerWidth < 768 ||
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent || '')
+        );
+        const bitrate = isMobile ? 3500000 : 5000000;
         const selectedMime = CanvasVideoRecorder.getSupportedMimeType(preferredFormat);
         const options = selectedMime
-          ? { mimeType: selectedMime, videoBitsPerSecond: 6000000 }
-          : { videoBitsPerSecond: 6000000 };
+          ? { mimeType: selectedMime, videoBitsPerSecond: bitrate }
+          : { videoBitsPerSecond: bitrate };
+
+        if (this.sceneManager && streamTrack) {
+          this.sceneManager.onRecordingFrame = () => {
+            if (typeof streamTrack.requestFrame === 'function') {
+              try {
+                streamTrack.requestFrame();
+              } catch (e) {}
+            }
+          };
+        }
 
         this.recordedChunks = [];
         this.mediaRecorder = new MediaRecorder(stream, options);
