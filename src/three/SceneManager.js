@@ -387,6 +387,11 @@ export class SceneManager {
     // 9. Load ONLY the active garment model on demand (avoid downloading 46MB upfront)
     this.ensureGarmentModelLoaded(this.garmentType);
 
+    // Safety fallback timeout: ensure studio loading screen never stays stuck indefinitely on slow mobile/desktop networks
+    setTimeout(() => {
+      this.triggerLoadedIfReady(true);
+    }, 4500);
+
     // Loop
     this.clock = new THREE.Clock();
     this.isDisposed = false;
