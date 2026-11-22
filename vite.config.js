@@ -51,7 +51,7 @@ function fastStaticModelsPlugin() {
 }
 
 export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/VirtualThreadPro/' : '/',
+  base: command === 'build' ? '/GarmentsAddiction/' : '/',
   define: {
     __APP_BUILD_TIME__: JSON.stringify(new Date().toISOString())
   },
