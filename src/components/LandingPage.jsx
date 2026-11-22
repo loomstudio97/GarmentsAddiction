@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { 
   ArrowRight, Search, X, Sun, Moon, Sparkles, Shirt, Layers, 
-  Play, Video, Check, ChevronDown, ChevronUp, Film, Camera, Move, Compass
+  Play, Video, Check, Film, Camera, Move, Compass
 } from 'lucide-react';
 import { GARMENT_PRODUCTS } from './ProductsCatalogModal';
 import { getAssetUrl } from '../utils/assets';
@@ -95,26 +95,6 @@ const PRICING_TIERS = [
   }
 ];
 
-// FAQ Accordion Data
-const FAQS = [
-  {
-    q: 'Do I need to sign up or create an account to start designing?',
-    a: 'No sign-up or credit card required. You can launch any blank immediately, upload your graphics, adjust colors, and inspect in real-time 3D.'
-  },
-  {
-    q: 'Can I export mockups in 60 FPS video and 4K resolution?',
-    a: 'Yes! The in-browser export engine renders 60 FPS video loops in 9:16 vertical, 1:1 square, and 16:9 widescreen formats, as well as 4K print snapshots.'
-  },
-  {
-    q: 'What artwork formats are supported?',
-    a: 'You can upload transparent PNG, JPG, and SVG graphics. Decals support independent scaling, rotation, opacity, and 3D puff print tactile extrusion.'
-  },
-  {
-    q: 'Can I use the exported mockups for commercial client presentations?',
-    a: 'Yes, all mockups exported from the studio are approved for brand lookbooks, tech packs, e-commerce listings, and client pitch decks.'
-  }
-];
-
 export function LandingPage({
   onSelectGarment,
   onResumeStudio,
@@ -125,7 +105,6 @@ export function LandingPage({
 }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   // Filter garments by category and search query
   const filteredGarments = useMemo(() => {
@@ -154,10 +133,6 @@ export function LandingPage({
 
     return list;
   }, [selectedCategory, searchQuery]);
-
-  const toggleFaq = (index) => {
-    setOpenFaqIndex(openFaqIndex === index ? null : index);
-  };
 
   return (
     <div className="min-h-screen w-full bg-[#f8f9fa] dark:bg-[#111317] text-gray-900 dark:text-gray-100 font-sans flex flex-col justify-between transition-colors duration-200">
@@ -548,48 +523,6 @@ export function LandingPage({
           </div>
         </section>
         */}
-
-        {/* Interactive FAQ Accordion */}
-        <section className="py-14 border-t border-gray-200 dark:border-white/10 max-w-3xl mx-auto w-full">
-          <div className="mb-8 text-center">
-            <h2 className="text-2xl font-extrabold tracking-tight text-gray-950 dark:text-white">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              Everything you need to know about the 3D apparel studio.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaqIndex === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.02] overflow-hidden transition-colors"
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-gray-900 dark:text-white"
-                  >
-                    <span>{faq.q}</span>
-                    {isOpen ? (
-                      <ChevronUp className="size-4 text-gray-400 shrink-0" />
-                    ) : (
-                      <ChevronDown className="size-4 text-gray-400 shrink-0" />
-                    )}
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-5 pb-4 text-xs text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-white/5 pt-3 animate-fadeIn">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
 
       </main>
 

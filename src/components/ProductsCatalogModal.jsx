@@ -27,37 +27,6 @@ export const GARMENT_PRODUCTS = [
   }
 ];
 
-const FAQS = [
-  {
-    q: 'Can I create 3D mockups without a subscription?',
-    a: 'Yes! In this application, both Oversized T-Shirt and Oversized Hoodie studios, 60fps video recording, 4K snapshots, and 3D glTF model downloads are completely unlocked with all studio features.'
-  },
-  {
-    q: 'Do I need to sign up or log in to start?',
-    a: 'No sign-up or credit card required. You can launch any blank immediately, upload your graphic artworks, and start animating in real-time.'
-  },
-  {
-    q: 'Can I create unlimited mockups?',
-    a: 'Yes, you can generate unlimited 3D clothing mockups, video loops (10s, 20s, 30s), and high-resolution snapshots without restrictions or limits.'
-  },
-  {
-    q: 'Do you store my designs on a server?',
-    a: 'No! Everything renders 100% locally in your browser using Three.js and WebGL. Your design files and graphics never leave your computer, ensuring total privacy.'
-  },
-  {
-    q: 'Do I have to wait for the mockup to render/export?',
-    a: 'No cloud queue or rendering delays. Real-time canvas streams and direct GLTF export encode on-the-fly directly on your GPU.'
-  },
-  {
-    q: 'Can I edit the color of the garment?',
-    a: 'Yes, every garment supports instant color customization using our curated streetwear swatches or the hex color picker.'
-  },
-  {
-    q: 'Does the graphic design reflect inside the collar or hem?',
-    a: 'No. Our custom GLSL fabric shader guarantees that artwork prints reflect strictly on the exterior surface, preserving a pristine interior fabric lining.'
-  }
-];
-
 export function ProductsCatalogModal({
   isOpen,
   onClose,
@@ -66,7 +35,6 @@ export function ProductsCatalogModal({
   onGetStarted
 }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [activeFaq, setActiveFaq] = useState(null);
   const [versionTab, setVersionTab] = useState('v2');
 
   if (!isOpen) return null;
@@ -287,41 +255,6 @@ export function ProductsCatalogModal({
                 <span>GET STARTED</span>
                 <ArrowRight className="size-4" />
               </button>
-            </div>
-          </div>
-
-          {/* Interactive FAQ Section */}
-          <div className="space-y-4 pt-4 border-t border-studio-850">
-            <div className="text-center space-y-1">
-              <h3 className="text-lg font-extrabold text-white">Frequently Asked Questions</h3>
-              <p className="text-xs text-studio-400">Need more information? Everything you need to know about our unlocked 3D mockups.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-              {FAQS.map((faq, idx) => {
-                const isOpen = activeFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="rounded-xl bg-studio-900 border border-studio-800 overflow-hidden transition-colors"
-                  >
-                    <button
-                      onClick={() => setActiveFaq(isOpen ? null : idx)}
-                      className="w-full p-4 flex items-center justify-between text-left text-xs font-bold text-studio-200 hover:text-white"
-                    >
-                      <span>{faq.q}</span>
-                      <span className="text-brand-accent ml-2 text-base">
-                        {isOpen ? '−' : '＋'}
-                      </span>
-                    </button>
-                    {isOpen && (
-                      <div className="px-4 pb-4 text-xs text-studio-400 leading-relaxed animate-fadeIn">
-                        {faq.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
             </div>
           </div>
 
