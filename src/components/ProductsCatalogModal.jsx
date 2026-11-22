@@ -88,7 +88,7 @@ export function ProductsCatalogModal({
               <h2 className="text-xl font-extrabold tracking-tight">Convert your 2D Designs to 3D</h2>
             </div>
             
-            {/* Version Switcher like virtualthreads.io */}
+            {/* Version Switcher */}
             <div className="hidden sm:flex items-center bg-studio-850 p-1 rounded-xl border border-studio-700/60 text-xs">
               <button
                 onClick={() => setVersionTab('v1')}
@@ -271,7 +271,7 @@ export function ProductsCatalogModal({
               </span>
               <h2 className="text-2xl font-black tracking-tight">Your Brand Deserves Motion</h2>
               <p className="text-xs text-studio-300 max-w-xl leading-relaxed">
-                "I'd recommend VirtualThreads to anyone who wants proper 3D mockups without the usual time drain or stress—it's been a genuine time saver."
+                "I'd recommend GarmentsAddiction to anyone who wants proper 3D mockups without the usual time drain or stress—it's been a genuine time saver."
                 <span className="block mt-1 font-semibold text-white">— Stanislav B · Motion Designer</span>
               </p>
             </div>

@@ -14,7 +14,7 @@ import {
 
 /**
  * MobileBottomNav
- * Ergonomic 6-action glassmorphic mobile dock for VirtualThreads 3D Studio.
+ * Ergonomic 6-action glassmorphic mobile dock for GarmentsAddiction 3D Studio.
  * Complies with Apple HIG & Google Material standards.
  * Features dedicated Rotate Animation & Walk buttons directly in the bottom nav bar for mobile view.
  */

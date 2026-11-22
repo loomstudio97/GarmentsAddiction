@@ -1,13 +1,13 @@
-# VirtualThreads — 3D Animated Apparel Mockup Studio
+# GarmentsAddiction — 3D Animated Apparel Mockup Studio
 
-A photorealistic 3D apparel customization studio and landing page inspired by [VirtualThreads](https://www.virtualthreads.io/), built with React, Three.js, Tailwind CSS, and Vite.
+A photorealistic 3D apparel customization studio and landing page built with React, Three.js, Tailwind CSS, and Vite.
 
 ---
 
 ## Features
 
-- **Authentic VirtualThreads Landing Page**:
-  - Replicates the official VirtualThreads landing experience with floating pill navigation, `[ Version 1 | Version 2 ]` catalog switcher, and garment preview cards.
+- **GarmentsAddiction Landing Page**:
+  - Landing experience with floating pill navigation, `[ Version 1 | Version 2 ]` catalog switcher, and garment preview cards.
   - Clicking any blank transitions directly into the 3D customization studio.
 
 - **Curated 3D Apparel Studios**:

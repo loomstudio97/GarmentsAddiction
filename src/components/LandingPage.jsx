@@ -176,12 +176,12 @@ export function LandingPage({
             }}
           >
             <div className="size-8 rounded-lg bg-gray-950 dark:bg-white text-white dark:text-gray-950 flex items-center justify-center font-bold text-xs shadow-sm group-hover:scale-105 transition-transform">
-              VT
+              GA
             </div>
             
             <div className="flex flex-col">
               <span className="font-extrabold text-base sm:text-lg tracking-tight leading-none text-gray-950 dark:text-white">
-                VirtualThreads
+                GarmentsAddiction
               </span>
               <span className="text-[10px] tracking-wide text-gray-500 dark:text-gray-400 mt-0.5">
                 3D Apparel Studio
@@ -598,9 +598,9 @@ export function LandingPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div className="flex items-center gap-2">
             <span className="size-5 rounded bg-gray-950 dark:bg-white text-white dark:text-gray-950 text-[10px] font-bold flex items-center justify-center">
-              VT
+              GA
             </span>
-            <span className="font-semibold text-gray-800 dark:text-gray-200">VirtualThreads Studio</span>
+            <span className="font-semibold text-gray-800 dark:text-gray-200">GarmentsAddiction Studio</span>
             <span>—</span>
             <span>Real-Time 3D Apparel Configurator</span>
           </div>

@@ -113,7 +113,7 @@ export function ExportPanel({
 
     // Trigger download
     const link = document.createElement('a');
-    link.download = `virtualthreads-${imageRes}-${Date.now()}.${imageFormat}`;
+    link.download = `garmentsaddiction-${imageRes}-${Date.now()}.${imageFormat}`;
     link.href = dataUrl;
     document.body.appendChild(link);
     link.click();
@@ -229,7 +229,7 @@ export function ExportPanel({
       );
 
       const ext = 'mp4';
-      const filename = `virtualthreads-${videoFormat}-${numDuration}s-${Date.now()}.${ext}`;
+      const filename = `garmentsaddiction-${videoFormat}-${numDuration}s-${Date.now()}.${ext}`;
       recorder.downloadBlob(result.blob, filename);
       setLastRecordedFile(filename);
       setRecordedSuccess(true);
@@ -382,7 +382,7 @@ export function ExportPanel({
 
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 38px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      ctx.fillText('VIRTUALTHREADS STUDIO — APPAREL TECH PACK SPECIFICATION', 70, 105);
+      ctx.fillText('GARMENTSADDICTION STUDIO — APPAREL TECH PACK SPECIFICATION', 70, 105);
 
       ctx.fillStyle = '#94a3b8';
       ctx.font = 'bold 20px monospace';
@@ -1355,7 +1355,7 @@ export function ExportPanel({
           <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
           <span>Ready for Studio Export</span>
         </span>
-        <span className="font-mono text-[10px] text-gray-400 dark:text-studio-500">VirtualThreads Studio</span>
+        <span className="font-mono text-[10px] text-gray-400 dark:text-studio-500">GarmentsAddiction Studio</span>
       </div>
     </aside>
   );

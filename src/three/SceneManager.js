@@ -160,7 +160,7 @@ function applyInsideFabricShader(material, getInsideColor, getAcidWashIntensity,
 
 
 /**
- * Photorealistic 3D Scene Manager using the official VirtualThreads 3D T-shirt model.
+ * Photorealistic 3D Scene Manager for GarmentsAddiction 3D Studio.
  */
 export class SceneManager {
   constructor(canvasContainer, onLoaded = () => {}, initialGarmentType = 'oversized_tee') {
@@ -2427,7 +2427,7 @@ export class SceneManager {
     applyInsideFabricShader(this.hoodieFabricMaterial, () => this.garmentColor, null, this.fabricMicroNormalMap, false);
 
     gltfLoader.load(
-      getAssetUrl('/models/virtualthreads_hoodie.glb'),
+      getAssetUrl('/models/garmentsaddiction_hoodie.glb'),
       (gltf) => {
         this.realHoodieRoot = new THREE.Group();
         this.realHoodieRoot.name = 'real_hoodie_root';
@@ -2457,7 +2457,7 @@ export class SceneManager {
         hoodieModel.position.set(0, 0, 0);
         this.realHoodieRoot.add(hoodieModel);
 
-        // Setup authentic walk cycle animation from virtualthreads
+        // Setup authentic walk cycle animation
         if (gltf.animations && gltf.animations.length > 0) {
           this.hoodieMixer = new THREE.AnimationMixer(hoodieModel);
           const masterClip = gltf.animations.find(a => a.name === 'WALK_Hoodie') || gltf.animations[0];
@@ -2529,7 +2529,7 @@ export class SceneManager {
       },
       undefined,
       (err) => {
-        console.warn('⚠️ Error loading virtualthreads hoodie GLB:', err);
+        console.warn('⚠️ Error loading garmentsaddiction hoodie GLB:', err);
         this.modelsLoaded.hoodie = true;
         this.modelsLoading.hoodie = false;
         this.applyGarmentTypeVisibility();
@@ -2908,7 +2908,7 @@ export class SceneManager {
       }
     });
 
-    console.group(`🔍 [VirtualThread 3D Mesh Inspection] ${label} (Garment: ${this.garmentType}, Family: ${this.getGarmentFamily(this.garmentType)})`);
+    console.group(`🔍 [GarmentsAddiction 3D Mesh Inspection] ${label} (Garment: ${this.garmentType}, Family: ${this.getGarmentFamily(this.garmentType)})`);
     console.table(tableData);
     console.groupEnd();
 
@@ -3352,7 +3352,7 @@ export class SceneManager {
           this.targetMaterialProps = null;
         }
       } catch (err) {
-        console.error('⚠️ [VirtualThread] Error during material transition lerp:', err);
+        console.error('⚠️ [GarmentsAddiction] Error during material transition lerp:', err);
         if (this.targetMaterialProps) {
           this.applyMaterialProps(this.targetMaterialProps);
         }
@@ -3792,7 +3792,7 @@ export class SceneManager {
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `virtualthreads-${this.garmentType || 'garment'}-${Date.now()}.gltf`;
+          a.download = `garmentsaddiction-${this.garmentType || 'garment'}-${Date.now()}.gltf`;
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);

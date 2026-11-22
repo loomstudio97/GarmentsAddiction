@@ -1,6 +1,6 @@
 /**
  * CanvasVideoRecorder
- * High-performance hardware video and screen recorder for VirtualThreads 3D Studio.
+ * High-performance hardware video and screen recorder for GarmentsAddiction 3D Studio.
  *
  * Supports both ultra-smooth 60 FPS browser tab screen recording via getDisplayMedia
  * and direct hardware-accelerated WebGL canvas stream capture into universal MP4 video.
@@ -336,7 +336,7 @@ export class CanvasVideoRecorder {
     }
   }
 
-  downloadBlob(blob, filename = 'virtualthreads-animation.mp4') {
+  downloadBlob(blob, filename = 'garmentsaddiction-animation.mp4') {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';

@@ -69,7 +69,7 @@ export default function App() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  // States matching official VirtualThreads UI
+  // States matching GarmentsAddiction UI
   const [garmentColor, setGarmentColor] = useState(initialColor); // default clean white or shared color
   const [backdropMode, setBackdropMode] = useState(theme === 'light' ? 'light' : 'dark');
   const [customBackground, setCustomBackground] = useState(null);
@@ -1345,7 +1345,7 @@ export default function App() {
       </>
       )}
 
-      {/* Products & Garment Blanks Catalog Modal (from virtualthreads.io/products) */}
+      {/* Products & Garment Blanks Catalog Modal */}
       <ProductsCatalogModal
         isOpen={productsCatalogOpen}
         onClose={() => setProductsCatalogOpen(false)}

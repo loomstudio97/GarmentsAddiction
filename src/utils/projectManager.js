@@ -1,5 +1,5 @@
 /**
- * Project Management Engine for VirtualThread
+ * Project Management Engine for GarmentsAddiction
  * Local-first project persistence using LocalStorage with JSON export/import
  * and cloud-ready data schema.
  */
@@ -167,7 +167,7 @@ export class ProjectManager {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = id ? `virtualthread-project-${id}.json` : `virtualthread-all-projects-${Date.now()}.json`;
+    a.download = id ? `garmentsaddiction-project-${id}.json` : `garmentsaddiction-all-projects-${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -129,7 +129,7 @@ export function SidebarLeft({
         isMobileOpen ? 'translate-x-0' : '-translate-x-[125%] md:translate-x-0'
       }`}>
         
-        {/* Top Header Row: Back to Products & VirtualThreads branding & Mobile Close Button */}
+        {/* Top Header Row: Back to Products & GarmentsAddiction branding & Mobile Close Button */}
         <div className="flex items-center justify-between pb-2.5 mb-1.5 border-b border-gray-100 dark:border-studio-800">
           <button
             onClick={onBackToLanding}
@@ -145,7 +145,7 @@ export function SidebarLeft({
                 <path d="M4 4h4.5l3.5 8.5L15.5 4H20l-6.5 15.5h-3L4 4z" />
               </svg>
             </div>
-            <span className="font-extrabold text-[11px] tracking-tight text-gray-900 dark:text-white">VirtualThreads</span>
+            <span className="font-extrabold text-[11px] tracking-tight text-gray-900 dark:text-white">GarmentsAddiction</span>
             {/* Mobile close button */}
             <button
               onClick={() => setIsMobileOpen(false)}

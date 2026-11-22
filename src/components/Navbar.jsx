@@ -10,7 +10,7 @@ export function Navbar({ onOpenExport, onOpenPresets }) {
           <Shirt className="size-5 text-white" />
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-extrabold text-base tracking-tight text-white">VirtualThreads</span>
+          <span className="font-extrabold text-base tracking-tight text-white">GarmentsAddiction</span>
           <span className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-brand-500/20 text-brand-accent border border-brand-500/30">
             3D STUDIO
           </span>

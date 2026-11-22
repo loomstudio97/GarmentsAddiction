@@ -345,7 +345,7 @@ export function PositionGuide({
         imgSrc: typeof l.image === 'string' ? l.image : (l.image?.src || null)
       }));
 
-      localStorage.setItem('virtualthreads_saved_layout', JSON.stringify(serialized));
+      localStorage.setItem('garmentsaddiction_saved_layout', JSON.stringify(serialized));
       showFeedback('Layout saved to studio');
     } catch (err) {
       console.warn('Could not save layout:', err);
@@ -359,7 +359,7 @@ export function PositionGuide({
     if (!designManager) return;
 
     try {
-      const saved = localStorage.getItem('virtualthreads_saved_layout');
+      const saved = localStorage.getItem('garmentsaddiction_saved_layout');
       if (!saved) {
         showFeedback('No saved layout found');
         return;

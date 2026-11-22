@@ -92,22 +92,22 @@ export function HeaderNav({
           <button
             onClick={onBackToLanding}
             className="flex items-center gap-2 hover:opacity-85 transition-opacity group text-left"
-            title="Return to VirtualThreads Homepage"
+            title="Return to GarmentsAddiction Homepage"
           >
             <div className="size-8 sm:size-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform shrink-0">
-              VT
+              GA
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-xs font-black tracking-wider uppercase text-gray-900 dark:text-white leading-tight">VirtualThreads</span>
+              <span className="text-xs font-black tracking-wider uppercase text-gray-900 dark:text-white leading-tight">GarmentsAddiction</span>
               <span className="text-[10px] font-mono text-brand-500 font-bold">3D Graphics Studio</span>
             </div>
           </button>
         ) : (
           <div className="flex items-center gap-2">
             <div className="size-8 sm:size-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-md shadow-brand-500/25 shrink-0">
-              VT
+              GA
             </div>
-            <span className="text-xs font-black tracking-wider uppercase text-gray-900 dark:text-white">VirtualThreads 3D</span>
+            <span className="text-xs font-black tracking-wider uppercase text-gray-900 dark:text-white">GarmentsAddiction 3D</span>
           </div>
         )}
 
